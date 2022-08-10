@@ -1,0 +1,51 @@
+CREATE TABLE IF NOT EXISTS person_log (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    person_id INT UNSIGNED NOT NULL,
+    name VARCHAR(255),
+    revised_at DATETIME NOT NULL DEFAULT NOW(),
+    revised_by UUID NOT NULL,
+    FOREIGN KEY (person_id) REFERENCES person(id),
+    FOREIGN KEY (revised_by) REFERENCES `user`(id)
+);
+CREATE TABLE IF NOT EXISTS child_log (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    child_id INT UNSIGNED NOT NULL,
+    parent_id INT UNSIGNED,
+    revised_at DATETIME NOT NULL DEFAULT NOW(),
+    revised_by UUID NOT NULL,
+    FOREIGN KEY (child_id) REFERENCES child(id),
+    FOREIGN KEY (revised_by) REFERENCES `user`(id)
+);
+
+
+CREATE TABLE IF NOT EXISTS case_log (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    case_id INT UNSIGNED NOT NULL,
+    state ENUM('RECOMMENDATION_PENDING', 'PARENT_OUTREACH', 'PAYMENT_PENDING', 'REPORT_PENDING', 'LOGBOOK_PENDING'),
+    closed BOOL,
+    revised_at DATETIME NOT NULL DEFAULT NOW(),
+    revised_by UUID NOT NULL,
+    FOREIGN KEY (case_id) REFERENCES `case`(id),
+    FOREIGN KEY (revised_by) REFERENCES `user`(id)
+);
+CREATE TABLE IF NOT EXISTS file_log (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    file_id INT UNSIGNED NOT NULL,
+    name VARCHAR(255),
+    extension VARCHAR(255),
+    data LONGBLOB,
+    description VARCHAR(255),
+    revised_at DATETIME NOT NULL DEFAULT NOW(),
+    revised_by UUID NOT NULL,
+    FOREIGN KEY (file_id) REFERENCES file(id) ON DELETE CASCADE,
+    FOREIGN KEY (revised_by) REFERENCES `user`(id)
+);
+CREATE TABLE IF NOT EXISTS comment_log (
+    id INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    comment_id INT UNSIGNED NOT NULL,
+    content VARCHAR(255),
+    revised_at DATETIME NOT NULL DEFAULT NOW(),
+    revised_by UUID NOT NULL,
+    FOREIGN KEY (comment_id) REFERENCES comment(id) ON DELETE CASCADE,
+    FOREIGN KEY (revised_by) REFERENCES `user`(id)
+);

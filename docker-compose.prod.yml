@@ -1,0 +1,62 @@
+version: "3"
+services:
+
+  mariadb:
+    restart: always
+    ports:
+      - "3306"
+    environment:
+      - MARIADB_ROOT_PASSWORD=password
+    volumes:
+      - mariadb:/var/lib/mysql
+
+  quarkus:
+    restart: always
+    ports:
+      - "8081"
+    environment:
+      - QUARKUS_HTTP_CORS_ORIGINS=https://cameronprater.com
+
+  react:
+    build:
+      target: prod
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./key.pem:/root/ssl/key.pem:ro
+      - ./cert.pem:/root/ssl/cert.pem:ro
+
+  adminer:
+    image: adminer:latest
+    command: php -S [::]:8082 -t /var/www/html
+    restart: always
+    depends_on:
+      - mariadb
+    ports:
+      - "8082"
+    environment:
+      - ADMINER_DEFAULT_SERVER=mariadb
+      - ADMINER_DESIGN=pepa-linha
+    networks:
+      - cms
+
+  mariabackup:
+    image: woolfg/mysql-backup-sidecar:v0.3.4-mariadb-10.5
+    restart: always
+    depends_on:
+      - mariadb
+    environment:
+      - MYSQL_HOST=mariadb
+      - MYSQL_PASSWORD=password
+    volumes:
+      - mariadb:/var/lib/mysql
+      - mariabackup:/backup
+    networks:
+      - cms
+
+volumes:
+  mariadb:
+  mariabackup:

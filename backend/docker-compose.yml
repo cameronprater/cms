@@ -1,0 +1,35 @@
+version: "3"
+services:
+
+  mariadb:
+    image: mariadb:latest
+    ports:
+      - "3306:3306"
+    environment:
+      - MARIADB_DATABASE=cmc_learning_tree
+      - MARIADB_RANDOM_ROOT_PASSWORD=yes
+    volumes:
+      - ./core/init-db:/docker-entrypoint-initdb.d:ro
+    networks:
+      - cms
+
+  quarkus:
+    build: .
+    depends_on:
+      - mariadb
+    ports:
+      - "8081:8081"
+    environment:
+      - QUARKUS_HTTP_CORS_ORIGINS=http://localhost:3000
+      - QUARKUS_DATASOURCE_JDBC_URL=jdbc:mariadb://mariadb:3306/cmc_learning_tree
+      - QUARKUS_DATASOURCE_PASSWORD=UlLHX5!CQUi8
+      - QUARKUS_OIDC_AUTH_SERVER_URL=https://dev-vjmco5s5.us.auth0.com
+      - QUARKUS_OIDC_TOKEN_AUDIENCE=http://localhost:8080/api
+      - QUARKUS_OIDC_ROLES_ROLE_CLAIM_PATH="http://localhost:8080/api/roles"
+      - APP_AUTH0_USERNAME=username
+      - APP_AUTH0_PASSWORD=password
+    networks:
+      - cms
+
+networks:
+  cms:

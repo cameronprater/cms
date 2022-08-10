@@ -1,0 +1,79 @@
+.caseContainer {
+    background-color: whitesmoke;
+    margin: 0.5em;
+    border-radius: 8px;
+    display: flex;
+    justify-content: left;
+    box-shadow: 3px 3px 30px grey;
+    width: 48vw;
+    height: 42vh;
+    margin-left: 2em;
+    margin-top: 1em;
+}
+
+.fileContainer {
+    background-color: whitesmoke;
+    margin: 0.5em;
+    border-radius: 8px;
+    box-shadow: 3px 3px 30px grey;
+    width: 48vw;
+    height: 42vh;
+    margin-left: 2em;
+    overflow: auto;
+}
+
+.commentContainer {
+    background-color: whitesmoke;
+    margin: 0.5em;
+    border-radius: 8px;
+    box-shadow: 3px 3px 30px grey;
+    width: 48vw;
+    height: 85.5vh;
+    margin-top: 1em;
+    overflow: auto;
+}
+
+.content {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    margin: 1%;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.right {
+    flex: 3;
+}
+
+.body {
+    display: flex;
+    flex-direction: column; 
+}
+
+.bodyContent {
+    flex: 1 0 auto;
+}
+
+.footer {
+    flex-shrink: 0;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+}
+
+.comment {
+    margin: 0.5em;
+    margin-left:1em;
+    background-color:gainsboro;
+    position: relative;
+}
+
+.comment:hover {
+    filter:brightness(103%)
+}

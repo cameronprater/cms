@@ -1,0 +1,40 @@
+.modalstyle {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 50px;
+    z-index: 100;
+    min-height: 50%;
+    min-width: 500px;
+    justify-content: center;
+    display: flex;
+    border-radius: 10px;
+}
+
+.modaloverlay {
+
+    position:fixed;
+    top: 0;
+    lefT: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,.7);
+
+}
+
+.modalbuttonlessstyle {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 50px;
+    z-index: 100;
+    min-height: 20%;
+    min-width: 200px;
+    justify-content: center;
+    display: flex;
+    border-radius: 10px;
+}

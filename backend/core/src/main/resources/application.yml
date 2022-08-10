@@ -1,0 +1,45 @@
+quarkus:
+  application:
+    name: cms-api
+  http:
+    cors: true
+    port: 8081
+    auth:
+      basic: true
+      permission:
+        react:
+          paths: /api/cases/**
+          policy: authenticated
+          auth-mechanism: bearer
+        auth0:
+          paths: /api/users/**
+          policy: authenticated
+          auth-mechanism: basic
+  datasource:
+    db-kind: mariadb
+    username: quarkus
+    devservices:
+      enabled: false
+
+
+app:
+  case-states:
+    recommendation-pending:
+      transition:
+        parent-outreach: clinical-director
+    parent-outreach:
+      transition:
+        recommendation-pending: clinical-director
+        payment-pending: customer-service
+    payment-pending:
+      transition:
+        parent-outreach: customer-service
+        report-pending: accounting
+        logbook-pending: accounting
+    report-pending:
+      transition:
+        payment-pending: accounting
+        parent-outreach: reporting-assistant
+    logbook-pending:
+      transition:
+        parent-outreach: therapist

@@ -1,0 +1,6 @@
+*
+!.env
+!package*.json
+!public
+!src
+!setup.js

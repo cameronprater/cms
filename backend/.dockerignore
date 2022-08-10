@@ -1,0 +1,13 @@
+*
+!.mvn
+!mvnw
+!pom.xml
+!core/pom.xml
+!core/src/main/java
+!core/src/main/resources
+!quarkus-build
+!quarkus-jdbi/pom.xml
+!quarkus-jdbi/deployment/pom.xml
+!quarkus-jdbi/deployment/src
+!quarkus-jdbi/runtime/pom.xml
+!quarkus-jdbi/runtime/src

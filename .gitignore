@@ -1,0 +1,8 @@
+.idea
+*.iml
+.vscode
+
+target
+node_modules
+build
+docker run.bat

@@ -1,0 +1,20 @@
+version: "3"
+services:
+
+  mariadb:
+    environment:
+      - MARIADB_RANDOM_ROOT_PASSWORD=yes
+
+  quarkus:
+    environment:
+      - QUARKUS_PROFILE=dev
+
+  react:
+    build:
+      target: dev
+    environment:
+      - CHOKIDAR_USEPOLLING=true
+      - NODE_ENV=development
+    volumes:
+      - ./frontend:/app
+      - /app/node_modules
